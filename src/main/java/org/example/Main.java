@@ -19,7 +19,16 @@ public class Main {
             int option = Integer.parseInt(scanner.nextLine());
             switch(option){
                 case 1:
-                    Book ksiazka = new Book();
+                    System.out.println("Podaj tytuł książki");
+                    String title = scanner.nextLine();
+                    System.out.println("Podaj autora książki");
+                    String author = scanner.nextLine();
+                    System.out.println("Podaj rok wydania książki");
+                    int year = Integer.parseInt(scanner.nextLine());
+                    System.out.println("Podaj gatunek książki");
+                    String genre = scanner.nextLine();
+                    int bookID = biblioteka.numberOfBooks();
+                    Book ksiazka = new Book(++bookID, title, author, year, genre);
                     biblioteka.addBook(ksiazka);
                     break;
                 case 2:

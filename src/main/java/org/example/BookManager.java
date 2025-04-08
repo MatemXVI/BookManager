@@ -7,6 +7,18 @@ import java.util.Scanner;
 public class BookManager {
     ArrayList<Book> books = new ArrayList<>();
 
+    public int numberOfBooks() {
+        int bookId = 0;
+        if(!books.isEmpty()){
+            for (Book book : books) {
+                bookId = book.getId();
+            }
+            return bookId;
+        }else{
+            return 0;
+        }
+    }
+
     public void addBook(Book book){
         books.add(book);
     }
