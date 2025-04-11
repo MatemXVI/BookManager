@@ -6,8 +6,8 @@ public class Main {
     public static void main(String[] args) {
         boolean isON = false;
         BookManager biblioteka = new BookManager();
+        Scanner scanner = new Scanner(System.in);
         while(!isON){
-            Scanner scanner = new Scanner(System.in);
             System.out.println("---------------BIBLIOTEKA--------------------");
             System.out.println("1. Dodaj nową książkę");
             System.out.println("2. Wyświetl wszystkie książki");
@@ -19,32 +19,29 @@ public class Main {
             int option = Integer.parseInt(scanner.nextLine());
             switch(option){
                 case 1:
-                    System.out.println("Podaj tytuł książki");
-                    String title = scanner.nextLine();
-                    System.out.println("Podaj autora książki");
-                    String author = scanner.nextLine();
-                    System.out.println("Podaj rok wydania książki");
-                    int year = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Podaj gatunek książki");
-                    String genre = scanner.nextLine();
-                    int bookID = biblioteka.numberOfBooks();
-                    Book ksiazka = new Book(++bookID, title, author, year, genre);
-                    biblioteka.addBook(ksiazka);
+                    biblioteka.addBook();
                     break;
                 case 2:
                     biblioteka.selectAllBook();
                     break;
                 case 3:
-                    biblioteka.searchBook("title", "author");
+                    System.out.print("Podaj frazę do wyszukania (tytuł lub autor): ");
+                    String query = scanner.nextLine();
+                    biblioteka.searchBook(query);
                     break;
+
                 case 4:
-                    biblioteka.deleteBook(1);
+                    System.out.print("Podaj ID książki do usunięcia: ");
+                    int id = Integer.parseInt(scanner.nextLine());
+                    biblioteka.deleteBook(id);
                     break;
+
                 case 5:
-                    biblioteka.saveBooksToFile("plik");
+                    biblioteka.saveBooksToFile("plik.txt");
                     break;
+
                 case 6:
-                    biblioteka.readBooksToFile("plik");
+                    biblioteka.readBooksToFile("plik.txt");
                     break;
                 case 7:
                     System.out.println("Czy chcesz wyjść z programu? Naicśnij 'T' jeśli chcesz to zrobić ");

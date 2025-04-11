@@ -48,11 +48,6 @@ public class Book {
         this.genre = genre;
     }
 
-    //konstruktor zeby nie podkreslał
-    public Book(){
-        super();
-    }
-
     public Book(int id, String title, String author, int year, String genre) {
         this.id = id;
         this.title = title;
