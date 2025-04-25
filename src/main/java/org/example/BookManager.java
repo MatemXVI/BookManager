@@ -42,8 +42,9 @@ public class BookManager {
     public void searchBook(String query) {
         boolean found = false;
         for (Book book : books) {
-            if (book.getTitle().toLowerCase().contains(query.toLowerCase()) ||
-                    book.getAuthor().toLowerCase().contains(query.toLowerCase())) {
+            String title = book.getTitle().toLowerCase();
+            String author = book.getAuthor().toLowerCase();
+            if (title.contains(query.toLowerCase()) || author.contains(query.toLowerCase())) {
                 System.out.println(book);
                 found = true;
             }
@@ -63,19 +64,31 @@ public class BookManager {
     }
 
     public void saveBooksToFile(String fileName) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName + ".txt"))) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(new FileWriter(fileName + ".txt"));
             for (Book book : books) {
                 writer.println(book);
             }
             System.out.println("Zapisano książki do pliku.");
         } catch (IOException e) {
             System.out.println("Wystąpił błąd przy zapisie do pliku: " + e.getMessage());
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
         }
     }
 
+
     public void readBooksToFile(String fileName) {
+        Scanner scanner = null;
         books.clear();
-        try (Scanner scanner = new Scanner(new File(fileName + ".txt"))) {
+
+        try {
+            File file = new File(fileName + ".txt");
+            scanner = new Scanner(file);
+
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(";");
@@ -97,6 +110,10 @@ public class BookManager {
             System.out.println("Wczytano książki z pliku.");
         } catch (FileNotFoundException e) {
             System.out.println("Nie znaleziono pliku: " + fileName + ".txt");
+        } finally {
+            if (scanner != null) {
+                scanner.close(); // zawsze zamknij scanner
+            }
         }
     }
 }
